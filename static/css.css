@@ -1,0 +1,64 @@
+
+body {
+  background: #353433;
+}
+
+#main {
+  position: absolute;
+  top: 64px;
+  right: 256px;
+  bottom: 16px;
+  left: 16px;
+  background: #000;
+}
+
+#toolbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 48px;
+  background: #090807;
+  border-bottom: 1px solid #454443;
+}
+
+.ts {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.tb {
+  display: inline-block;
+  vertical-align: top;
+  color: #8b8685;
+  text-decoration: none;
+  font: 24px/48px Helvetica;
+  height: 48px;
+  width: 64px;
+  text-align: center;
+}
+
+.tb.mode {
+  font-size: 32px;
+}
+
+.tb.active {
+  color: #e9e8e7;
+  background: #252423;
+}
+
+.tb.grid {
+  font-size: 24px;
+  width: 48px;
+}
+
+.tb.zoom {
+  font-size: 24px;
+  width: 72px;
+  text-align: right;
+  margin-right: 12px;
+}
+
+#toolbar .right {
+  float: right;
+}
