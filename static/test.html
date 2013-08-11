@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mocha</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="./bower_components/mocha/mocha.css" />
+<script src="./bower_components/mocha/mocha.js"></script>
+<script src="./bower_components/chai/chai.js"></script>
+<script src="./lib/sinon-1.7.3.js"></script>
+<script>mocha.setup('bdd')</script>
+<script>
+  window.runMochaTest = function(){
+    mocha.checkLeaks()
+    var runner = mocha.run()
+  };
+</script>
+</head>
+<body class="test">
+  <div id="mocha"></div>
+  <script data-main="js/main.js" src="bower_components/requirejs/require.js"></script>
+</body>
+</html>

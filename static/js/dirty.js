@@ -26,6 +26,7 @@ dirty.watch = function(fn) {
 
 dirty.always = function(callback) {
   watchers.push(callback)
+  callback()
 }
 
 dirty.check = function() {

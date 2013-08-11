@@ -19,8 +19,9 @@ define(function(require) {
   var Desire = require('./desire')
 
   var desire = new Desire()
+  var tests = require('./tests')
 
-  desire.register({
+  var components = {
 
     'app': require('./app'),
     'doc': require('./doc'),
@@ -49,11 +50,28 @@ define(function(require) {
     'view.mouse': require('./view_mouse'),
     'keyboard': require('./keyboard')
 
-  })
+  }
 
   $(function() {
-    desire('app')
+
+    if ($('body').is('.test')) {
+      tests.run(components)
+    } else {
+      var desire = new Desire(components)
+      desire('app')
+    }
+
   })
 
 })
+
+
+
+
+
+
+
+
+
+
 

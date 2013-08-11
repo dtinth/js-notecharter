@@ -23,7 +23,7 @@ Level.prototype.getMeasureSize = function(measure) {
 }
 
 Level.prototype.eachEvent = function(fn) {
-  return _.sortBy(this._events, 'row').forEach(fn)
+  return _.each(_.sortBy(this._events, 'row'), fn)
 }
 
 Level.prototype.addEvent = function(event) {
