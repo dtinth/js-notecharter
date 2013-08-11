@@ -8,8 +8,9 @@ return {
   grid: '#353433',
   beat: '#454443',
   measure: '#8b8685',
-  note: '#c33',
-  channels: {
+  object: '#c33',
+
+  objectColorByChannel: {
     '1': '#ccc',
     '2': '#6ae',
     '3': '#ccc',

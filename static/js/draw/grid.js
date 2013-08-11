@@ -14,8 +14,6 @@ return function drawGrid(ctx, view) {
   var level = doc.level
 
   // draw vertical grid
-  var frequency = 192 / viewport.grid
-
   function drawHorizontalGridline(row) {
     var y = viewport.rowToView(row) - 1
     ctx.fillRect(0, y, viewport.width, 1)
@@ -23,18 +21,17 @@ return function drawGrid(ctx, view) {
 
   viewport.eachVisibleMeasure(level, function(measure) {
 
-    var measureSize = level.getMeasureSize(measure)
     var measureStart = level.measureToRow(measure)
 
     ctx.fillStyle = theme.grid
-    for (var i = frequency; i < measureSize; i += frequency) {
-      drawHorizontalGridline(measureStart + i)
-    }
+    viewport.eachRowInMeasure(level, measure, viewport.grid, function(row) {
+      drawHorizontalGridline(row)
+    })
 
     ctx.fillStyle = theme.beat
-    for (var i = 48; i < measureSize; i += 48) {
-      drawHorizontalGridline(measureStart + i)
-    }
+    viewport.eachRowInMeasure(level, measure, 4, function(row) {
+      drawHorizontalGridline(row)
+    })
 
     ctx.fillStyle = theme.measure
     drawHorizontalGridline(measureStart)

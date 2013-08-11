@@ -13,7 +13,11 @@ view.addDrawProcedure(desire('draw.object'), 100)
 view.renderTo(desire('container'))
 
 desire('dirty').always(view.redraw.bind(view))
-desire('view.scroll').bindTo(view)
+
+desire('view.scroll').bind()
+desire('view.mouse').bind()
+
+desire('mode_handler').watch()
 
 desire('mode_switcher').renderTo(desire('toolbar').find('.modes'))
 desire('grid_switcher').renderTo(desire('toolbar').find('.grid'))

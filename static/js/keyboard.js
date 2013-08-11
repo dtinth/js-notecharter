@@ -6,6 +6,7 @@ define(function(require) {
 var modes = desire('modes')
 var dirty = desire('dirty')
 var view = desire('view')
+var modeHandler = desire('mode_handler')
 
 function bind() {
 
@@ -47,7 +48,7 @@ function bind() {
     if (keys[key]) {
       return keys[key](key, e)
     } else {
-      console.log(key)
+      return modeHandler.fire('keydown', key, e)
     }
     
   })

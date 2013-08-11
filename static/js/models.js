@@ -6,8 +6,8 @@ var _ = require('lodash')
 var _ = require('lodash')
 
 function Level() {
-  this.events = []
-  this.timeSignatures = {}
+  this._events = []
+  this._timeSignatures = {}
 }
 
 Level.prototype.rowToMeasure = function(row) {
@@ -23,7 +23,11 @@ Level.prototype.getMeasureSize = function(measure) {
 }
 
 Level.prototype.eachEvent = function(fn) {
-  return _.sortBy(this.events, 'row').forEach(fn)
+  return _.sortBy(this._events, 'row').forEach(fn)
+}
+
+Level.prototype.addEvent = function(event) {
+  this._events.push(event)
 }
 
 return {

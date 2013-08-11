@@ -29,12 +29,12 @@ define(function(require) {
     'toolbar': Desire.value($('#toolbar')),
 
     'modes': require('./modes'),
+    'mode_handler': require('./mode_handler'),
     'mode_switcher': require('./mode_switcher'),
     'grid_switcher': require('./grid_switcher'),
     'zoom_indicator': require('./zoom_indicator'),
-
+    
     'view': require('./view'),
-    'view.scroll': require('./view_scroll'),
 
     'theme': require('./theme'),
     'columns': require('./columns'),
@@ -43,8 +43,10 @@ define(function(require) {
     'draw.measure': require('./draw/measure'),
     'draw.grid': require('./draw/grid'),
     'draw.object': require('./draw/object'),
-    'draw.object.text': require('./object_text'),
+    'object_style': require('./object_style'),
 
+    'view.scroll': require('./view_scroll'),
+    'view.mouse': require('./view_mouse'),
     'keyboard': require('./keyboard')
 
   })

@@ -5,7 +5,9 @@ define(function(require) {
 
   return function(desire) {
 
-function bindTo(view) {
+var view = desire('view')
+
+function bind() {
   view.element.on('MozMousePixelScroll', function(e) {
     var pixels = e.originalEvent.detail
     view.viewport.scroll -= pixels
@@ -14,7 +16,7 @@ function bindTo(view) {
   })
 }
 
-return { bindTo: bindTo }
+return { bind: bind }
 
   }
 
