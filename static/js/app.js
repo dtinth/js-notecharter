@@ -26,7 +26,10 @@ function run() {
     desire(component).renderTo(config.toolbar.find(element))
   })
 
-  desire('handler.insert').handle()
+  _.each(config.modeHandlers, function(component) {
+    desire(component).handle()
+  })
+
   desire('mode_handler').watch()
 
 }

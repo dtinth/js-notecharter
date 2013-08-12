@@ -10,11 +10,14 @@ var theme = desire('theme')
 var columns = desire('columns')
 var viewport = desire('viewport')
 var opts = desire('draw.options')
+var selection = desire('selection')
+var metrics = desire('metrics')
 
 var getStyle = desire('object_style')
-var objectHeight = 12
 
 return function drawObject(ctx) {
+
+  var objectHeight = metrics.objectHeight
 
   function drawEvent(event) {
 
@@ -35,8 +38,13 @@ return function drawObject(ctx) {
       var width = column.width - 1
       var height = objectHeight
       var style = getStyle(event) || {}
+      
+      var color = style.color || theme.object
+      if (selection.isSelected(event)) {
+        color = theme.selectedObject
+      }
 
-      ctx.fillStyle = style.color || theme.object
+      ctx.fillStyle = color
       ctx.fillRect(x, y, width, height)
       ctx.fillStyle = 'rgba(255,255,255,0.5)'
       ctx.fillRect(x, y, width, 1)
@@ -57,7 +65,7 @@ return function drawObject(ctx) {
 
   }
 
-  doc.level.eachEvent(function(event) {
+  doc.eachEvent(function(event) {
     drawEvent(event)
   })
 

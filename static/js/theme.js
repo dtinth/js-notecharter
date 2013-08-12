@@ -10,6 +10,7 @@ return {
   beat: '#454443',
   measure: '#8b8685',
   object: '#c33',
+  selectedObject: '#6ff',
   longNote: '#6c6',
 
   objectColorByChannel: {

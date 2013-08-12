@@ -21,6 +21,10 @@ columns.set = function(array) {
   list = array
 }
 
+columns.get = function(index) {
+  return list[index]
+}
+
 columns.each = function(fn) {
   return _.each(list, fn)
 }

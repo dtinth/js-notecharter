@@ -7,7 +7,6 @@ var dirty = desire('dirty')
 var modes = { }
 
 modes.mode = 'select'
-modes.mode = 'insert'
 modes.MODES = [ 'select', 'insert', 'remove' ]
 
 modes.watch = dirty.watch(function() { return modes.mode })

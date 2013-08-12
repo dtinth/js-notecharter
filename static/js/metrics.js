@@ -65,12 +65,33 @@ metrics.viewToRowOnGrid = function(pixel) {
   })
 }
 
-metrics.insertPosition = function(position) {
-  var row = metrics.viewToRowOnGrid(position.y)
+function positionToRowColumn(position, snap) {
+  var row = snap ? metrics.viewToRowOnGrid(position.y)
+                 : viewport.viewToRow(position.y)
   var column = columns.fromView(position.x)
   if (row && column) {
     return { row: row, column: column, channel: column.channel }
   }
+}
+
+metrics.insertPosition = function(position) {
+  return positionToRowColumn(position, true)
+}
+
+metrics.selectPosition = function(position) {
+  return positionToRowColumn(position, false)
+}
+
+metrics.objectHeight = 12
+
+metrics.getEventUnderPosition = function(position) {
+  return util.find(doc.eachEvent, function(event) {
+    var column = columns.find(event.channel)
+    if (column == null) return false
+    if (!(column.left <= position.x && position.x < column.right)) return false
+    var pixel = viewport.rowToView(event.row)
+    return pixel - metrics.objectHeight <= position.y && position.y <= pixel
+  })
 }
 
 return metrics

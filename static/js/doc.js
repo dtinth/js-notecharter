@@ -22,7 +22,10 @@ define(function(require) {
     }
 
     return {
-      level: level
+      level: level,
+      eachEvent: function(fn) {
+        return level.eachEvent(fn)
+      }
     }
 
   }

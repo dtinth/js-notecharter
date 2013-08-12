@@ -38,6 +38,9 @@ define(function(require) {
         }
       })
       return out
+    },
+    minmax: function(a, b, c, fn) {
+      return c(a) < c(b) ? fn(a, b) : fn(b, a)
     }
   }
 

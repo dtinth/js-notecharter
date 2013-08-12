@@ -30,6 +30,7 @@ define(function(require) {
       'draw.measure': require('./draw/measure'),
       'draw.grid': require('./draw/grid'),
       'draw.object': require('./draw/object'),
+      'draw.marquee': require('./draw/marquee'),
       'object_style': require('./object_style'),
 
       'view.scroll': require('./view_scroll'),
@@ -37,8 +38,13 @@ define(function(require) {
       'keyboard': require('./keyboard'),
 
       'ops': require('./ops'),
+      'marquee': require('./marquee'),
+      'selection': require('./selection'),
 
-      'handler.insert': require('./handler/insert')
+      'mode.insert': require('./mode/insert'),
+      'mode.select': require('./mode/select'),
+
+      'draw.bms_longnote': require('./draw/bms_longnote'),
 
     },
 
@@ -48,7 +54,9 @@ define(function(require) {
     drawProcedures: [
       { component: 'draw.measure', priority: 10 },
       { component: 'draw.grid', priority: 20 },
-      { component: 'draw.object', priority: 100 }
+      { component: 'draw.bms_longnote', priority: 70 },
+      { component: 'draw.object', priority: 80 },
+      { component: 'draw.marquee', priority: 100 }
     ],
 
     binders: [
@@ -61,7 +69,12 @@ define(function(require) {
       'mode_switcher': '.modes',
       'grid_switcher': '.grid',
       'zoom_indicator': '.zoom'
-    }
+    },
+
+    modeHandlers: [
+      'mode.insert',
+      'mode.select'
+    ]
 
   }
 
