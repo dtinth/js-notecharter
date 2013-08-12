@@ -3,14 +3,14 @@ define(function(require) {
 
   return function(desire) {
 
-
 var doc = desire('doc')
 var theme = desire('theme')
 var columns = desire('columns')
+var viewport = desire('viewport')
+var metrics = desire('metrics')
 
-return function drawGrid(ctx, view) {
+return function drawGrid(ctx) {
 
-  var viewport = view.viewport
   var level = doc.level
 
   // draw vertical grid
@@ -19,17 +19,17 @@ return function drawGrid(ctx, view) {
     ctx.fillRect(0, y, viewport.width, 1)
   }
 
-  viewport.eachVisibleMeasure(level, function(measure) {
+  metrics.eachVisibleMeasure(function(measure) {
 
     var measureStart = level.measureToRow(measure)
 
     ctx.fillStyle = theme.grid
-    viewport.eachRowInMeasure(level, measure, viewport.grid, function(row) {
+    metrics.eachRowInMeasure(measure, viewport.grid, function(row) {
       drawHorizontalGridline(row)
     })
 
     ctx.fillStyle = theme.beat
-    viewport.eachRowInMeasure(level, measure, 4, function(row) {
+    metrics.eachRowInMeasure(measure, 4, function(row) {
       drawHorizontalGridline(row)
     })
 
@@ -37,7 +37,6 @@ return function drawGrid(ctx, view) {
     drawHorizontalGridline(measureStart)
     
   })
-
 
   // draw horizontal grid
   columns.each(function(column, index) {

@@ -6,13 +6,14 @@ define(function(require) {
   return function(desire) {
 
 var view = desire('view')
+var viewport = desire('viewport')
 var dirty = desire('dirty')
 
 function renderTo(container) {
 
   var el = $('<span class="tb zoom"></span>').appendTo(container)
 
-  dirty.watch(function() { return view.viewport.zoom })(function(value) {
+  dirty.watch(function() { return viewport.zoom })(function(value) {
     el.html('x' + value)
   })
 

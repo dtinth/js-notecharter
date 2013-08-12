@@ -1,29 +1,37 @@
 
 define(function(require) {
 
+  var _ = require('lodash')
+
   return function(desire) {
 
 var view = desire('view')
 var doc = desire('doc')
 
-view.addDrawProcedure(desire('draw.measure'), 10)
-view.addDrawProcedure(desire('draw.grid'), 10)
-view.addDrawProcedure(desire('draw.object'), 100)
+var config = desire('config')
 
-view.renderTo(desire('container'))
+function run() {
 
-desire('dirty').always(view.redraw.bind(view))
+  _.each(config.drawProcedures, function(proc) {
+    view.addDrawProcedure(desire(proc.component), proc.priority)
+  })
+  
+  view.renderTo(config.container)
 
-desire('view.scroll').bind()
-desire('view.mouse').bind()
+  _.each(config.binders, function(component) {
+    desire(component).bind()
+  })
 
-desire('mode_handler').watch()
+  _.each(config.toolbarSections, function(element, component) {
+    desire(component).renderTo(config.toolbar.find(element))
+  })
 
-desire('mode_switcher').renderTo(desire('toolbar').find('.modes'))
-desire('grid_switcher').renderTo(desire('toolbar').find('.grid'))
-desire('zoom_indicator').renderTo(desire('toolbar').find('.zoom'))
+  desire('handler.insert').handle()
+  desire('mode_handler').watch()
 
-desire('keyboard').bind()
+}
+
+return { run: run }
 
   }
 

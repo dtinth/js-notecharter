@@ -4,20 +4,16 @@ define(function(require) {
   var Canvas = require('./canvas')
   var $ = require('jquery')
 
-  var Viewport = require('./viewport')
-
   return function(desire) {
 
-
-
+var viewport = desire('viewport')
+var dirty = desire('dirty')
 var view = { }
-
-view.viewport = new Viewport()
 
 view.drawProcedures = []
 
 function draw(ctx, w, h) {
-  view.viewport.resize(w, h)
+  viewport.resize(w, h)
   view.drawProcedures.forEach(function(fn) {
     try {
       ctx.save()
@@ -43,15 +39,13 @@ view.redraw = function() {
 }
 
 view.renderTo = function(container) {
-
   view.canvas = new Canvas(container, draw)
   view.element = $(view.canvas.element)
   view.redraw()
-
   return view.element
-
 }
 
+desire('dirty').always(view.redraw.bind(view))
 
 return view
 

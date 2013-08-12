@@ -4,11 +4,13 @@ define(function(require) {
   return function(desire) {
 
 return {
+
   background: '#090807',
   grid: '#353433',
   beat: '#454443',
   measure: '#8b8685',
   object: '#c33',
+  longNote: '#6c6',
 
   objectColorByChannel: {
     '1': '#ccc',
@@ -33,6 +35,7 @@ return {
     shadowColor: 'black',
     shadowBlur: 2
   }
+
 }
     
   }

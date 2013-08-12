@@ -5,25 +5,30 @@ define(function(require) {
 
   return function(desire) {
 
-
 var doc = desire('doc')
 var theme = desire('theme')
 var columns = desire('columns')
+var viewport = desire('viewport')
+var opts = desire('draw.options')
 
 var getStyle = desire('object_style')
 var objectHeight = 12
 
-return function drawObject(ctx, view) {
+return function drawObject(ctx) {
 
-  var viewport = view.viewport
-
-  doc.level.eachEvent(function(event) {
+  function drawEvent(event) {
 
     var position = viewport.rowToView(event.row)
     var onScreen = position > 0 && position < viewport.height + objectHeight
     var column = columns.find(event.channel)
 
     if (onScreen && column) {
+
+      ctx.save()
+
+      if (event.preview) {
+        ctx.globalAlpha = 0.5
+      }
 
       var x = column.left + 1
       var y = position - objectHeight
@@ -42,15 +47,23 @@ return function drawObject(ctx, view) {
 
       var text = (style.text || '') + ''
       if (text) {
-        ctx.save()
         _.assign(ctx, theme.objectText)
         ctx.fillText(text, x + width / 2 - 1, y + height - 1)
-        ctx.restore()
       }
 
+      ctx.restore()
+
     }
-    
+
+  }
+
+  doc.level.eachEvent(function(event) {
+    drawEvent(event)
   })
+
+  if (opts.preview) {
+    drawEvent(opts.preview)
+  }
 
 }
 

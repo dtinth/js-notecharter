@@ -5,7 +5,7 @@ define(function(require) {
 
   return function(desire) {
 
-var view = desire('view')
+var viewport = desire('viewport')
 var dirty = desire('dirty')
 
 function renderTo(container) {
@@ -13,7 +13,7 @@ function renderTo(container) {
   var grids = [4, 8, 12, 16, 24, 32, 48, 64, 192]
 
   var watchGrid = dirty.watch(function() {
-    return view.viewport.grid
+    return viewport.grid
   })
 
   grids.forEach(function(grid) {
@@ -21,7 +21,7 @@ function renderTo(container) {
     var el = $('<span class="tb grid"></span>')
       .html(grid)
       .click(function() {
-        view.viewport.grid = grid
+        viewport.grid = grid
         dirty.check()
       })
       .appendTo(container)

@@ -48,45 +48,8 @@ Viewport.prototype.rowToView = function(row) {
   return Math.round(this.height - 24 - distance)
 }
 
-// loop through visible measure
-Viewport.prototype.eachVisibleMeasure = function(level, fn) {
-
-  var bottom = this.scroll
-  var top = this.viewToRow(0)
-  var startMeasure = Math.max(0, level.rowToMeasure(bottom))
-
-  for (var measure = startMeasure;
-       level.measureToRow(measure) <= top;
-       measure++) {
-    if (fn(measure) === false) return false
-  }
-
-}
-
 Viewport.prototype.getGridFrequency = function(grid) {
   return 192 / (grid || this.grid)
-}
-
-Viewport.prototype.eachRowInMeasure = function(level, measure, grid, fn) {
-
-  var measureSize = level.getMeasureSize(measure)
-  var measureStart = level.measureToRow(measure)
-  var step = this.getGridFrequency(grid)
-
-  for (var i = step; i < measureSize; i += step) {
-    if (fn(measureStart + i) === false) return false
-  }
-
-}
-
-Viewport.prototype.eachGrid = function(level, grid, fn) {
-  var that = this
-  return this.eachVisibleMeasure(level, function(measure) {
-    if (fn(level.measureToRow(measure)) === false) return false
-    return that.eachRowInMeasure(level, measure, grid, function(row) {
-      if (fn(row) === false) return false
-    })
-  })
 }
 
 return Viewport

@@ -6,10 +6,16 @@ define(function(require) {
 var theme = desire('theme')
 
 return function getStyle(event) {
+
+  var color = theme.objectColorByChannel[event.channel]
+
+  if (event.longNote) color = theme.longNote
+
   return {
     text: '',
-    color: theme.objectColorByChannel[event.channel]
+    color: color
   }
+
 }
 
   }

@@ -5,7 +5,7 @@ define(function(require) {
 
 var modes = desire('modes')
 var dirty = desire('dirty')
-var view = desire('view')
+var viewport = desire('viewport')
 var modeHandler = desire('mode_handler')
 
 function bind() {
@@ -22,8 +22,8 @@ function bind() {
     '53': switchGrid(24),
     '54': switchGrid(48),
 
-    '173': function() { view.viewport.zoomOut(); dirty.check(); return false },
-    '61': function() { view.viewport.zoomIn(); dirty.check(); return false }
+    '173': function() { viewport.zoomOut(); dirty.check(); return false },
+    '61': function() { viewport.zoomIn(); dirty.check(); return false }
   }
 
   function switchMode(mode) {
@@ -35,7 +35,7 @@ function bind() {
   }
   function switchGrid(grid) {
     return function() {
-      view.viewport.grid = grid
+      viewport.grid = grid
       dirty.check()
       return false
     }

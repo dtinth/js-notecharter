@@ -34,7 +34,7 @@ function watch() {
 function getMode(mode) {
   var object = handlers[mode] || (handlers[mode] = { })
   return {
-    register: function(event, fn) {
+    on: function(event, fn) {
       object[event] = fn
       return this
     }

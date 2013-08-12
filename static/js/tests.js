@@ -4,15 +4,15 @@
 /*global it, describe, beforeEach, chai, context, sinon*/
 define(function(require) {
 
-  var expect = chai.expect
-  var Desire = require('desire')
-
-  var Viewport = require('viewport')
-  var models = require('models')
-
-  var Level = models.Level
-
   function run(components) {
+
+var expect = chai.expect
+var Desire = require('desire')
+
+var Viewport = require('viewport')
+var models = require('models')
+
+var Level = models.Level
 
 var desire
 
@@ -201,6 +201,83 @@ describe('modes', function() {
 
 
 
+describe('mode_handler', function() {
+
+  it('::fireMode should fire handler registered through ::mode.on', function() {
+    
+    var modeHandler = desire('mode_handler')
+
+    var spy1 = sinon.spy()
+    var spy2 = sinon.spy()
+    var spy3 = sinon.spy()
+
+    modeHandler.mode('test')
+    .on('event1', spy1)
+    .on('event2', spy2)
+
+    modeHandler.mode('another')
+    .on('event1', spy3)
+
+    modeHandler.fireMode('test', 'event1', 'a', 'b')
+    modeHandler.fireMode('test', 'event2', 'a', 'c', 'e')
+    modeHandler.fireMode('another', 'event1', 'hello', 'world')
+
+    expect(spy1.calledWith('a', 'b')).to.be.true
+    expect(spy2.calledWith('a', 'c', 'e')).to.be.true
+    expect(spy3.calledWith('hello', 'world')).to.be.true
+
+  })
+
+  it('::fire should fire on current mode', function() {
+    
+    var modeHandler = desire('mode_handler')
+    var mode = desire('modes').mode
+
+    var spy1 = sinon.spy()
+
+    modeHandler.mode(mode).on('event1', spy1)
+
+    modeHandler.fire('event1', 'event1', 'a', 'b')
+    expect(spy1.calledWith('event1', 'a', 'b')).to.be.true
+
+  })
+
+  it('::watch should fire leave and enter', function() {
+    
+    var modeHandler = desire('mode_handler')
+    var dirty = desire('dirty')
+    var modes = desire('modes')
+    var initMode = modes.mode
+    var targetMode = initMode + 'wat'
+
+    var spy1 = sinon.spy()
+    var spy2 = sinon.spy()
+    var spy3 = sinon.spy()
+    var spy4 = sinon.spy()
+
+    modeHandler.mode(initMode).on('leave', spy1).on('enter', spy2)
+    modeHandler.mode(targetMode).on('leave', spy3).on('enter', spy4)
+
+    modeHandler.watch()
+
+    modes.mode = targetMode
+    dirty.check()
+
+    expect(spy1.callCount).to.equal(1)
+    expect(spy2.callCount).to.equal(1)
+    expect(spy3.callCount).to.equal(0)
+    expect(spy4.callCount).to.equal(1)
+
+    modes.mode = initMode
+    dirty.check()
+
+    expect(spy2.callCount).to.equal(2)
+    expect(spy3.callCount).to.equal(1)
+
+  })
+
+  
+})
 
 window.runMochaTest()
 

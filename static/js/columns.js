@@ -2,6 +2,7 @@
 define(function(require) {
 
   var _ = require('lodash')
+  var util = require('util')
 
   return function(desire) {
 
@@ -25,14 +26,15 @@ columns.each = function(fn) {
 }
 
 columns.find = function(channel) {
-  var result
-  columns.each(function(column, index) {
-    if (column.channel == channel) {
-      result = column
-      return false
-    }
+  return util.find(list, function(column) {
+    return column.channel == channel
   })
-  return result
+}
+
+columns.fromView = function(x) {
+  return util.find(list, function(column) {
+    return column.left <= x && x < column.right
+  })
 }
 
 var columnWidth = 36

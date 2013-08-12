@@ -8,14 +8,21 @@ define(function(require) {
 var view = desire('view')
 var modeHandler = desire('mode_handler')
 
+function position(e) {
+  var offset = view.element.offset()
+  var x = e.pageX - offset.left
+  var y = e.pageY - offset.top
+  return { x: x, y: y }
+}
+
 function mousedown(e) {
-  return modeHandler.fire('mousedown', e)
+  return modeHandler.fire('mousedown', position(e), e)
 }
 function mousemove(e) {
-  return modeHandler.fire('mousemove', e)
+  return modeHandler.fire('mousemove', position(e), e)
 }
 function mouseup(e) {
-  return modeHandler.fire('mouseup', e)
+  return modeHandler.fire('mouseup', position(e), e)
 }
 
 function bind() {

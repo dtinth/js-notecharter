@@ -7,13 +7,14 @@ define(function(require) {
 
 var doc = desire('doc')
 var theme = desire('theme')
+var viewport = desire('viewport')
+var metrics = desire('metrics')
 
-return function drawGrid(ctx, view) {
+return function drawGrid(ctx) {
 
-  var viewport = view.viewport
   var level = doc.level
 
-  viewport.eachVisibleMeasure(level, function(measure) {
+  metrics.eachVisibleMeasure(function(measure) {
 
     var measureStart = level.measureToRow(measure)
 
@@ -26,7 +27,6 @@ return function drawGrid(ctx, view) {
   })
 
 }
-
 
   }
   
