@@ -17,6 +17,8 @@ var ops = desire('ops')
 var opts = desire('draw.options')
 
 var pos // the next insert position
+var getEventOptions = desire('new_event_options')
+var error = desire('error')
 
 function mousemove(p) {
   pos = metrics.insertPosition(p)
@@ -32,18 +34,15 @@ function mousemove(p) {
 function mousedown(p) {
 }
 
-function getEventOptions(options, event) {
-  if (event.shiftKey) {
-    options.longNote = true
-  }
-  return options
-}
-
 function mouseup(p, e) {
   if (pos) {
-    when(getEventOptions({ row: pos.row, channel: pos.channel }, e))
+    when({ row: pos.row, channel: pos.channel })
+      .then(function(options) {
+        return getEventOptions(options, e)
+      })
       .then(ops.createAndAddEvent)
       .then(dirty.check)
+      .then(null, error)
   }
 }
 

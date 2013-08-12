@@ -14,7 +14,7 @@ function fireMode(mode, event) {
   if (handlers[mode] && typeof handlers[mode][event] == 'function') {
     return handlers[mode][event].apply(null, args)
   } else {
-    console.log('unhandled:', mode, event)
+    console.log('unhandled:', mode, event, args)
   }
 }
 

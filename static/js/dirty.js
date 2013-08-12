@@ -1,10 +1,13 @@
 
 define(function(require) {
   
+  var _ = require('lodash')
+  
   return function(desire) {
 
 var dirty = {}
 var watchers = []
+var always = []
 
 dirty.watch = function(fn) {
   function then(callback) {
@@ -15,6 +18,9 @@ dirty.watch = function(fn) {
         var oldValue = value === initial ? (void 0) : value
         value = newValue
         callback(newValue, oldValue)
+        return true
+      } else {
+        return false
       }
     }
     watchers.push(watcher)
@@ -25,14 +31,23 @@ dirty.watch = function(fn) {
 }
 
 dirty.always = function(callback) {
-  watchers.push(callback)
+  always.push(callback)
   callback()
 }
 
+function run(watcher) {
+  return watcher() === true
+}
+
 dirty.check = function() {
-  watchers.forEach(function(watcher) {
-    watcher()
-  })
+  var list = watchers
+  for (var i = 0; i < 10; i ++) {
+    list = _.filter(list, run)
+    if (list.length === 0) return _.each(always, run)
+  }
+  _.each(always, run)
+  console.error(list)
+  throw new Error('infinite loop?')
 }
 
 return dirty

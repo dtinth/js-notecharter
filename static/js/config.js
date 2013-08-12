@@ -3,85 +3,93 @@ define(function(require) {
 
   var Desire = require('desire')
 
-  var config = {
+  return function getConfig() {
 
-    components: {
+    var config = {
 
-      'config': GetConfig,
+      components: {
 
-      'app': require('./app'),
-      'doc': require('./doc'),
+        'config': GetConfig,
 
-      'modes': require('./modes'),
-      'mode_handler': require('./mode_handler'),
-      'mode_switcher': require('./mode_switcher'),
-      'grid_switcher': require('./grid_switcher'),
-      'zoom_indicator': require('./zoom_indicator'),
-      
-      'view': require('./view'),
-      'viewport': require('./viewport_factory'),
-      'metrics': require('./metrics'),
+        'app': require('./app'),
+        'doc': require('./doc'),
+        'error': require('./error_handler'),
 
-      'theme': require('./theme'),
-      'columns': require('./columns'),
+        'modes': require('./modes'),
+        'mode_handler': require('./mode_handler'),
+        'mode_switcher': require('./mode_switcher'),
+        'grid_switcher': require('./grid_switcher'),
+        'zoom_indicator': require('./zoom_indicator'),
+        
+        'view': require('./view'),
+        'viewport': require('./viewport_factory'),
+        'metrics': require('./metrics'),
 
-      'dirty': require('./dirty'),
-      'draw.options': require('./draw/options'),
-      'draw.measure': require('./draw/measure'),
-      'draw.grid': require('./draw/grid'),
-      'draw.object': require('./draw/object'),
-      'draw.marquee': require('./draw/marquee'),
-      'object_style': require('./object_style'),
+        'theme': require('./theme'),
+        'columns': require('./columns'),
 
-      'view.scroll': require('./view_scroll'),
-      'view.mouse': require('./view_mouse'),
-      'keyboard': require('./keyboard'),
+        'dirty': require('./dirty'),
+        'draw.options': require('./draw/options'),
+        'draw.measure': require('./draw/measure'),
+        'draw.grid': require('./draw/grid'),
+        'draw.object': require('./draw/object'),
+        'draw.marquee': require('./draw/marquee'),
+        'object_style': require('./object_style'),
 
-      'ops': require('./ops'),
-      'marquee': require('./marquee'),
-      'selection': require('./selection'),
+        'view.scroll': require('./view_scroll'),
+        'view.mouse': require('./view_mouse'),
+        'keyboard': require('./keyboard'),
 
-      'mode.insert': require('./mode/insert'),
-      'mode.select': require('./mode/select'),
+        'ops': require('./ops'),
+        'marquee': require('./marquee'),
+        'selection': require('./selection'),
 
-      'draw.bms_longnote': require('./draw/bms_longnote'),
+        'mode.insert': require('./mode/insert'),
+        'mode.select': require('./mode/select'),
+        'mode.remove': require('./mode/remove'),
 
-    },
+        'new_event_options': require('./new_event_options'),
+        'draw.bms_longnote': require('./draw/bms_longnote')
 
-    container: $('#main'),
-    toolbar: $('#toolbar'),
+      },
 
-    drawProcedures: [
-      { component: 'draw.measure', priority: 10 },
-      { component: 'draw.grid', priority: 20 },
-      { component: 'draw.bms_longnote', priority: 70 },
-      { component: 'draw.object', priority: 80 },
-      { component: 'draw.marquee', priority: 100 }
-    ],
+      container: $('#main'),
+      toolbar: $('#toolbar'),
 
-    binders: [
-      'view.scroll',
-      'view.mouse',
-      'keyboard'
-    ],
+      drawProcedures: [
+        { component: 'draw.measure', priority: 10 },
+        { component: 'draw.grid', priority: 20 },
+        { component: 'draw.bms_longnote', priority: 70 },
+        { component: 'draw.object', priority: 80 },
+        { component: 'draw.marquee', priority: 100 }
+      ],
 
-    toolbarSections: {
-      'mode_switcher': '.modes',
-      'grid_switcher': '.grid',
-      'zoom_indicator': '.zoom'
-    },
+      binders: [
+        'view.scroll',
+        'view.mouse',
+        'keyboard'
+      ],
 
-    modeHandlers: [
-      'mode.insert',
-      'mode.select'
-    ]
+      toolbarSections: {
+        'mode_switcher': '.modes',
+        'grid_switcher': '.grid',
+        'zoom_indicator': '.zoom'
+      },
 
-  }
+      modeHandlers: [
+        'mode.insert',
+        'mode.select',
+        'mode.remove'
+      ]
 
-  function GetConfig(desire) {
+    }
+
+    function GetConfig(desire) {
+      return config
+    }
+
     return config
-  }
 
-  return config
+  }
   
 })

@@ -28,6 +28,7 @@ function mouseup(e) {
 function bind() {
   view.element
   .on('mousedown', mousedown)
+  $(document)
   .on('mousemove', mousemove)
   .on('mouseup',   mouseup)
 }

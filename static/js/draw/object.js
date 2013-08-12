@@ -21,15 +21,26 @@ return function drawObject(ctx) {
 
   function drawEvent(event) {
 
-    var position = viewport.rowToView(event.row)
+    var row = event.row
+    var channel = event.channel
+
+    if (opts.moves && event.id) {
+      var override = opts.moves[event.id]
+      if (override) {
+        row = override.row
+        channel = override.channel
+      }
+    }
+
+    var position = viewport.rowToView(row)
     var onScreen = position > 0 && position < viewport.height + objectHeight
-    var column = columns.find(event.channel)
+    var column = columns.find(channel)
 
     if (onScreen && column) {
 
       ctx.save()
 
-      if (event.preview) {
+      if (event.preview || opts.toRemove === event) {
         ctx.globalAlpha = 0.5
       }
 

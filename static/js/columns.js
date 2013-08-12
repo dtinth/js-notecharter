@@ -19,6 +19,7 @@ columns.set = function(array) {
     x += column.width
   })
   list = array
+  columns.length = list.length
 }
 
 columns.get = function(index) {

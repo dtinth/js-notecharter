@@ -6,14 +6,17 @@ define(function(require) {
 
   return function(desire) {
 
+    var dirty = desire('dirty')
     var level = new models.Level()
 
     var channels = ['1', '2', '3', '4', '5', '6', '7']
 
     function generateRandomNote(i) {
-      _.take(_.shuffle(channels), _.random(1, 2)).forEach(function(channel) {
-        var event = models.createEvent({ channel: channel, row: i * 12 })
-        level.addEvent(event)
+      level.batch(function() {
+        _.take(_.shuffle(channels), _.random(1, 2)).forEach(function(channel) {
+          var event = models.createEvent({ channel: channel, row: i * 12 })
+          level.addEvent(event)
+        })
       })
     }
 
@@ -23,6 +26,7 @@ define(function(require) {
 
     return {
       level: level,
+      watch: dirty.watch(function() { return level.revision }),
       eachEvent: function(fn) {
         return level.eachEvent(fn)
       }

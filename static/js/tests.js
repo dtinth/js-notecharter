@@ -55,19 +55,30 @@ describe('models.Level', function() {
     var a, b
 
     beforeEach(function() {
-      a = models.createEvent({ row: 1 })
-      b = models.createEvent({ row: 2 })
-      level.addEvent(a)
+      a = models.createEvent({ row: 1, id: 'iama', channel: 'a' })
+      b = models.createEvent({ row: 2, id: 'andimb', channel: 'b' })
       level.addEvent(b)
+      level.addEvent(a)
     })
 
-    it('#addEvent should add event to the level and #eachEvent should loop through them', function() {
+    it('#addEvent should add event to the level and #eachEvent should loop through them sorted by row', function() {
       var out = []
       level.eachEvent(function(e) {
         out.push(e)
       })
       expect(out.length).to.equal(2)
-      expect(out[0]).to.not.equal(out[1])
+      expect(out[0]).to.equal(a)
+      expect(out[1]).to.equal(b)
+    })
+
+    it('#removeEvent should remove event from the level', function() {
+      var out = []
+      level.removeEvent(a)
+      level.eachEvent(function(e) {
+        out.push(e)
+      })
+      expect(out.length).to.equal(1)
+      expect(out[0]).to.equal(b)
     })
 
     it('#eachEvent should stop when return false', function() {
@@ -77,6 +88,23 @@ describe('models.Level', function() {
         return false
       })
       expect(out.length).to.equal(1)
+    })
+
+    it('#get should return event based on id', function() {
+      expect(level.get('iama')).to.equal(a)
+      expect(level.get('andimb')).to.equal(b)
+    })
+
+    it('#eachChannel should yield list by channel', function() {
+      var out = []
+      level.eachChannel(function(list, channel) {
+        out.push({ list: list, channel: channel })
+      })
+      expect(out.length).to.equal(2)
+      expect(out[0].channel).to.equal('a')
+      expect(out[0].list[0]).to.equal(a)
+      expect(out[1].channel).to.equal('b')
+      expect(out[1].list[0]).to.equal(b)
     })
     
   })

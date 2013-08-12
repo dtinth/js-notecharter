@@ -69,7 +69,7 @@ function positionToRowColumn(position, snap) {
   var row = snap ? metrics.viewToRowOnGrid(position.y)
                  : viewport.viewToRow(position.y)
   var column = columns.fromView(position.x)
-  if (row && column) {
+  if (row >= 0 && column) {
     return { row: row, column: column, channel: column.channel }
   }
 }

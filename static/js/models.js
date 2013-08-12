@@ -6,8 +6,10 @@ var _ = require('lodash')
 var _ = require('lodash')
 
 function Level() {
-  this._events = []
+  this._map = { }
+  this._list = [ ]
   this._timeSignatures = {}
+  this.revision = 0
 }
 
 Level.prototype.rowToMeasure = function(row) {
@@ -23,11 +25,47 @@ Level.prototype.getMeasureSize = function(measure) {
 }
 
 Level.prototype.eachEvent = function(fn) {
-  return _.each(_.sortBy(this._events, 'row'), fn)
+  return _.each(this._list, fn)
+}
+
+Level.prototype.eachChannel = function(fn) {
+  return _.each(_.groupBy(this._list, 'channel'), fn)
+}
+
+Level.prototype.batch = function(fn) {
+  if (this._inBatch) throw new Error("cant call batch in batch")
+  this.update(function() {
+    this._inBatch = true
+    try {
+      fn.call(this)
+    } finally {
+      this._inBatch = false
+    }
+  })
+}
+
+Level.prototype.update = function(fn) {
+  fn.call(this)
+  if (!this._inBatch) {
+    this._list = _.sortBy(_.values(this._map), 'row')
+    this.revision ++
+  }
+}
+
+Level.prototype.get = function(id) {
+  return this._map[id]
 }
 
 Level.prototype.addEvent = function(event) {
-  this._events.push(event)
+  this.update(function() {
+    this._map[event.id] = event
+  })
+}
+
+Level.prototype.removeEvent = function(event) {
+  this.update(function() {
+    delete this._map[event.id]
+  })
 }
 
 return {

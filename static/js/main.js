@@ -20,7 +20,8 @@ define(function(require) {
   var Desire = require('desire')
 
   var tests = require('./tests')
-  var config = require('./config')
+  var getConfig = require('./config')
+  var config = getConfig()
 
   var components = config.components
 
