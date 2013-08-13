@@ -1,0 +1,23 @@
+{
+  "name": "js-notecharter",
+  "version": "0.0.0",
+  "private": true,
+  "description": "notechart editor",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~3.3.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dtinth/js-notecharter.git"
+  },
+  "author": "Thai Pangsakulyanont <org.yi.dttvb@gmail.com>",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "b3b15ad08c934dbd70b0565c3404223dbb1200cd"
+}
