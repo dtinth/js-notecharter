@@ -15,13 +15,18 @@ function position(e) {
   return { x: x, y: y }
 }
 
+var down = false
+
 function mousedown(e) {
+  down = true
   return modeHandler.fire('mousedown', position(e), e)
 }
 function mousemove(e) {
   return modeHandler.fire('mousemove', position(e), e)
 }
 function mouseup(e) {
+  if (!down) return
+  down = false
   return modeHandler.fire('mouseup', position(e), e)
 }
 

@@ -32,6 +32,7 @@ define(function(require) {
     } else {
       var desire = new Desire(components)
       desire('app').run()
+      desire('doc').load()
     }
 
   })

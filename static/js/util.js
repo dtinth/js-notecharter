@@ -41,6 +41,13 @@ define(function(require) {
     },
     minmax: function(a, b, c, fn) {
       return c(a) < c(b) ? fn(a, b) : fn(b, a)
+    },
+    toArray: function(iterable) {
+      var out = [ ]
+      util.each(iterable, function(c, i) {
+        out.push(c)
+      })
+      return out
     }
   }
 

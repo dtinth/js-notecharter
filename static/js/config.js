@@ -46,6 +46,8 @@ define(function(require) {
         'plugin.key_mode': require('./plugin/key_mode'),
         'plugin.key_grid': require('./plugin/key_grid'),
         'plugin.key_zoom': require('./plugin/key_zoom'),
+        'plugin.key_save': require('./plugin/key_save'),
+        'plugin.key_undo_redo': require('./plugin/key_undo_redo'),
 
         'ops': require('./ops'),
         'marquee': require('./marquee'),
@@ -114,7 +116,9 @@ define(function(require) {
       plugins: [
         'plugin.key_mode',
         'plugin.key_grid',
-        'plugin.key_zoom'
+        'plugin.key_zoom',
+        'plugin.key_save',
+        'plugin.key_undo_redo'
       ]
 
     }
