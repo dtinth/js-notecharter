@@ -10,6 +10,8 @@ define(function(require) {
 
     var config = {
 
+      appName: 'js-notecharter',
+
       components: {
 
         'config': GetConfig,

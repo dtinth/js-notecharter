@@ -36,6 +36,7 @@ function run() {
     desire(component).initialize()
   })
 
+  document.title = config.appName
   desire('mode_handler').watch()
 
 }
