@@ -32,6 +32,10 @@ function run() {
     desire(component).handle()
   })
 
+  _.each(config.plugins, function(component) {
+    desire(component).initialize()
+  })
+
   desire('mode_handler').watch()
 
 }

@@ -43,6 +43,10 @@ define(function(require) {
         'view.mouse': require('./view_mouse'),
         'keyboard': require('./keyboard'),
 
+        'plugin.key_mode': require('./plugin/key_mode'),
+        'plugin.key_grid': require('./plugin/key_grid'),
+        'plugin.key_zoom': require('./plugin/key_zoom'),
+
         'ops': require('./ops'),
         'marquee': require('./marquee'),
         'selection': require('./selection'),
@@ -105,6 +109,11 @@ define(function(require) {
         { channel: 'A8', width: columnWidth },
         { channel: 'A9', width: columnWidth },
         { channel: 'A10', width: columnWidth }
+      ],
+
+      plugins: [
+        'plugin.key_mode',
+        'plugin.key_grid'
       ]
 
     }
