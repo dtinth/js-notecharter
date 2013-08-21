@@ -9,7 +9,6 @@
     "tests"
   ],
   "dependencies": {
-    "backbone": "~1.0.0",
     "it.js": "dtinth/it.js#~0.7.0",
     "font-awesome": "~3.2.1",
     "jquery": "~2.0.3",
