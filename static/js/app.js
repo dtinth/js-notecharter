@@ -11,6 +11,8 @@ var doc = desire('doc')
 var config = desire('config')
 
 function run() {
+  
+  desire('columns').set(config.columns)
 
   _.each(config.drawProcedures, function(proc) {
     view.addDrawProcedure(desire(proc.component), proc.priority)
