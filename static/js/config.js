@@ -113,7 +113,8 @@ define(function(require) {
 
       plugins: [
         'plugin.key_mode',
-        'plugin.key_grid'
+        'plugin.key_grid',
+        'plugin.key_zoom'
       ]
 
     }
