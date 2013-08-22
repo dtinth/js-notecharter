@@ -48,6 +48,13 @@ define(function(require) {
         out.push(c)
       })
       return out
+    },
+    up: function(from) {
+      return function(iterator) {
+        for (var i = from; ; i ++) {
+          if (iterator(i) === false) return false
+        }
+      }
     }
   }
 

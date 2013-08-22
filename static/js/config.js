@@ -45,12 +45,14 @@ define(function(require) {
         'view.scroll': require('./view_scroll'),
         'view.mouse': require('./view_mouse'),
         'keyboard': require('./keyboard'),
+        'clipboard': require('./clipboard'),
 
         'plugin.key_mode': require('./plugin/key_mode'),
         'plugin.key_grid': require('./plugin/key_grid'),
         'plugin.key_zoom': require('./plugin/key_zoom'),
         'plugin.key_save': require('./plugin/key_save'),
         'plugin.key_undo_redo': require('./plugin/key_undo_redo'),
+        'plugin.copy_paste': require('./plugin/copy_paste'),
 
         'ops': require('./ops'),
         'marquee': require('./marquee'),
@@ -79,7 +81,8 @@ define(function(require) {
       binders: [
         'view.scroll',
         'view.mouse',
-        'keyboard'
+        'keyboard',
+        'clipboard'
       ],
 
       toolbarSections: {
@@ -121,7 +124,8 @@ define(function(require) {
         'plugin.key_grid',
         'plugin.key_zoom',
         'plugin.key_save',
-        'plugin.key_undo_redo'
+        'plugin.key_undo_redo',
+        'plugin.copy_paste'
       ]
 
     }
