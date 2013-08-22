@@ -29,10 +29,10 @@ function notify(text) {
 
 notify.progress = function(promise, text, finishedText) {
   var item = make(text)
-  promise
+  return promise
   .then(
     function() { item.text(finishedText) },
-    function(error) { item.text('Error!'); console.error(error) }
+    function(error) { item.text('Error!'); console.error(error); throw error }
   )
   .ensure(function() { item.done() })
 }
