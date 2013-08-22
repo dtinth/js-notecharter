@@ -62,3 +62,20 @@ body {
 #toolbar .right {
   float: right;
 }
+
+#popups {
+  position: absolute;
+  top: 64px; right: 16px;
+}
+
+.notify {
+  float: right; clear: right;
+  position: relative;
+  z-index: 10;
+  background: #aaa;
+  color: #000;
+  font: 16px Helvetica Neue;
+  padding: 5px 10px;
+  white-space: nowrap;
+  margin-bottom: 5px;
+}

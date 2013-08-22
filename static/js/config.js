@@ -19,6 +19,7 @@ define(function(require) {
         'app': require('./app'),
         'doc': require('./doc'),
         'error': require('./error_handler'),
+        'notify': require('./notify'),
 
         'modes': require('./modes'),
         'mode_handler': require('./mode_handler'),

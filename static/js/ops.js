@@ -7,6 +7,7 @@ define(function(require) {
   return function(desire) {
 
     var doc = desire('doc')
+    var notify = desire('notify')
     
     var undos = []
     var redos = []
@@ -89,6 +90,9 @@ define(function(require) {
             }
           })
         }))
+      },
+      save: function() {
+        notify.progress(doc.save(), 'Saving...', 'Saved!')
       }
     }
 

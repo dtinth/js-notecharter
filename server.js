@@ -1,7 +1,7 @@
 
 var express = require('express')
 var app = express()
-var port = 15076
+var port = parseInt(process.env.PORT, 10) || 15076
 
 var fs = require('fs')
 var filename = process.argv[2]

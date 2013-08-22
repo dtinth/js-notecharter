@@ -39,6 +39,8 @@ function run() {
   document.title = config.appName
   desire('mode_handler').watch()
 
+  desire('notify').progress(desire('doc').load(), 'Loading notechart', 'Loaded')
+
 }
 
 return { run: run }
