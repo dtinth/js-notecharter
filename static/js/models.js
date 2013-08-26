@@ -32,6 +32,12 @@ Level.prototype.eachChannel = function(fn) {
   return _.each(_.groupBy(this._list, 'channel'), fn)
 }
 
+Level.prototype.range = function(lower, upper) {
+  var a = _.sortedIndex(this._list, { row: lower }, 'row')
+  var b = _.sortedIndex(this._list, { row: upper }, 'row')
+  return this._list.slice(a, b)
+}
+
 Level.prototype.batch = function(fn) {
   if (this._inBatch) throw new Error("cant call batch in batch")
   this.update(function() {

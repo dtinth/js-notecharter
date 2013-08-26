@@ -52,6 +52,14 @@ Viewport.prototype.getGridFrequency = function(grid) {
   return 192 / (grid || this.grid)
 }
 
+// visible rows
+Viewport.prototype.visibleRowRange = function(padding, callback) {
+  return callback(
+    this.viewToRow(this.height + padding),
+    this.viewToRow(-padding)
+  )
+}
+
 return Viewport
 
 })

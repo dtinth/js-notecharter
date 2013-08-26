@@ -108,6 +108,44 @@ describe('models.Level', function() {
     })
     
   })
+
+  describe('with multiple events', function() {
+  
+    beforeEach(function() {
+      level.addEvent(models.createEvent({ row: 10, channel: '1' }))
+      level.addEvent(models.createEvent({ row: 20, channel: '2' }))
+      level.addEvent(models.createEvent({ row: 20, channel: '1' }))
+      level.addEvent(models.createEvent({ row: 30, channel: '2' }))
+      level.addEvent(models.createEvent({ row: 39, channel: '3' }))
+      level.addEvent(models.createEvent({ row: 39, channel: '4' }))
+      level.addEvent(models.createEvent({ row: 40, channel: '1' }))
+      level.addEvent(models.createEvent({ row: 40, channel: '2' }))
+    })
+    
+    it('#range should return events in range', function() {
+      var range = level.range(20, 40)
+      expect(range.length).to.equal(5)
+      expect(range[0].row).to.equal(20)
+      expect(range[1].row).to.equal(20)
+      expect(range[2].row).to.equal(30)
+      expect(range[3].row).to.equal(39)
+      expect(range[3].row).to.equal(39)
+    })
+
+    it('#range should return events in range before', function() {
+      var range = level.range(0, 40)
+      expect(range.length).to.equal(6)
+    })
+    it('#range should return events in range after', function() {
+      var range = level.range(20, 100)
+      expect(range.length).to.equal(7)
+    })
+    it('#range should return events in range before and after', function() {
+      var range = level.range(0, 100)
+      expect(range.length).to.equal(8)
+    })
+
+  })
   
 
 })

@@ -29,6 +29,14 @@ metrics.eachVisibleMeasure = function(fn) {
 
 }
 
+metrics.eachVisibleEvent = function(fn) {
+  var level = doc.level
+  viewport.visibleRowRange(metrics.objectHeight, function(lower, upper) {
+    var array = level.range(lower, upper)
+    return _.each(array, fn)
+  })
+}
+
 metrics.eachRowInMeasure = function(measure, grid, fn) {
 
   var level = doc.level
@@ -93,6 +101,7 @@ metrics.getEventUnderPosition = function(position) {
     return pixel - metrics.objectHeight <= position.y && position.y <= pixel
   })
 }
+
 
 return metrics
 

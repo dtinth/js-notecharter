@@ -33,10 +33,9 @@ return function drawObject(ctx) {
     }
 
     var position = viewport.rowToView(row)
-    var onScreen = position > 0 && position < viewport.height + objectHeight
     var column = columns.find(channel)
 
-    if (onScreen && column) {
+    if (column) {
 
       ctx.save()
 
@@ -76,7 +75,7 @@ return function drawObject(ctx) {
 
   }
 
-  doc.eachEvent(function(event) {
+  metrics.eachVisibleEvent(function(event) {
     drawEvent(event)
   })
 

@@ -12,11 +12,18 @@ define(function(require) {
     var dirty = desire('dirty')
     var level = new models.Level()
 
-    return {
+    var watchers = []
+
+    var levelWatcher = dirty.watch(function() { return level.revision })
+
+    var doc = {
 
       level: level,
+      errors: [],
 
-      watch: dirty.watch(function() { return level.revision }),
+      watch: function(fn) {
+        watchers.push(fn)
+      },
 
       eachEvent: function(fn) {
         return level.eachEvent(fn)
@@ -49,6 +56,15 @@ define(function(require) {
       }
 
     }
+
+    levelWatcher(function(revision) {
+      doc.errors = []
+      _.each(watchers, function(watcher) {
+        watcher(revision)
+      })
+    })
+
+    return doc
 
   }
   
