@@ -3,11 +3,14 @@ define(function(require) {
 
   var models = require('./models')
   var _ = require('./lodash')
+  var when = require('when')
+  var $ = require('jquery')
 
   return function(desire) {
 
     var doc = desire('doc')
     var notify = desire('notify')
+    var selection = desire('selection')
     
     var undos = []
     var redos = []
@@ -53,7 +56,7 @@ define(function(require) {
       undos.push(operation)
     }
 
-    return {
+    var ops = {
       undo: function() {
         var c = undos.pop()
         if (!c) return
@@ -69,6 +72,13 @@ define(function(require) {
       createAndAddEvent: function(options) {
         var event = models.createEvent(options)
         perform(add(event))
+      },
+      addEvents: function(events) {
+        perform(chain(function(run) {
+          _.each(events, function(event) {
+            run(add(event))
+          })
+        }))
       },
       removeEvent: function(event) {
         perform(remove(event))
@@ -91,10 +101,30 @@ define(function(require) {
           })
         }))
       },
+      updateEvents: function(events, callback) {
+        perform(chain(function(run) {
+          _.each(events, function(event) {
+            callback(event, function(key, value) {
+              run(set(event, key, value))
+            })
+          })
+        }))
+      },
+      updateSelection: function(callback) {
+        var sel = selection.get()
+        if (sel.length === 0) return
+        ops.updateEvents(sel, callback)
+      },
       save: function() {
         notify.progress(doc.save(), 'Saving...', 'Saved!')
+        .then(function() {
+          notify.progress(when($.ajax({ url: '/convert', type: 'POST' })),
+            'Converting...', 'Converted to MIDI!')
+        })
       }
     }
+
+    return ops
 
   }
   

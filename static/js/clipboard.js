@@ -18,6 +18,9 @@ clipboard.bind = function() {
     container.append(textarea)
     textarea.focus()
     textarea.select()
+    setTimeout(function() {
+      $(textarea).remove()
+    }, 100)
   }
 
   $(window).on('keydown', function(e) {

@@ -71,14 +71,12 @@ function onpaste(json) {
     _.each(data, function(event) {
       event.row += addRow
     })
-    level.batch(function() {
-      var modelEvents = _.map(data, function(event) {
-        var modelEvent = models.createEvent(event)
-        level.addEvent(modelEvent)
-        return modelEvent
-      })
-      selection.set(modelEvents)
+    var modelEvents = _.map(data, function(event) {
+      var modelEvent = models.createEvent(event)
+      return modelEvent
     })
+    ops.addEvents(modelEvents)
+    selection.set(modelEvents)
     dirty.check()
   } catch (e) {
     notify('cannot paste: ' + e)
