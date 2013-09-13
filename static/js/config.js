@@ -20,6 +20,7 @@ define(function(require) {
         'doc': require('./doc'),
         'error': require('./error_handler'),
         'notify': require('./notify'),
+        'loadsave': require('./loadsave_node'),
 
         'modes': require('./modes'),
         'mode_handler': require('./mode_handler'),

@@ -11,6 +11,7 @@ define(function(require) {
 
     var dirty = desire('dirty')
     var level = new models.Level()
+    var loadsave = desire('loadsave')
 
     var watchers = []
 
@@ -30,7 +31,7 @@ define(function(require) {
       },
 
       load: function() {
-        return when($.ajax({ url: '/data.json' }))
+        return loadsave.load()
         .then(function(data) {
           level.batch(function() {
             _.each(data.events, function(event) {
@@ -43,9 +44,7 @@ define(function(require) {
 
       save: function() {
         var data = { events: util.toArray(level.eachEvent.bind(level)) }
-
-        return when($.ajax({ url: '/save', type: 'POST',
-          data: { data: JSON.stringify(data) } }))
+        return loadsave.save(data)
         .then(function(resp) {
           if (resp == 'ok') {
             return 'ok'
