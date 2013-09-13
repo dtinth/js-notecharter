@@ -117,10 +117,6 @@ define(function(require) {
       },
       save: function() {
         notify.progress(doc.save(), 'Saving...', 'Saved!')
-        .then(function() {
-          notify.progress(when($.ajax({ url: '/convert', type: 'POST' })),
-            'Converting...', 'Converted to MIDI!')
-        })
       }
     }
 
