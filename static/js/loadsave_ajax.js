@@ -13,6 +13,9 @@ define(function(require) {
       save: function(data) {
         return when($.ajax({ url: '/save', type: 'POST',
           data: { data: JSON.stringify(data) } }))
+      },
+      convert: function() {
+        return when($.ajax({ url: '/convert', type: 'POST' }))
       }
     }
 

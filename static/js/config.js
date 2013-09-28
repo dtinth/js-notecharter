@@ -7,6 +7,7 @@ define(function(require) {
 
     var columnWidth = 36
     var gutterWidth = 8
+    var node = window.node
 
     var config = {
 
@@ -20,7 +21,7 @@ define(function(require) {
         'doc': require('./doc'),
         'error': require('./error_handler'),
         'notify': require('./notify'),
-        'loadsave': require('./loadsave_node'),
+        'loadsave': node ? require('./loadsave_node') : require('./loadsave_ajax'),
 
         'modes': require('./modes'),
         'mode_handler': require('./mode_handler'),
