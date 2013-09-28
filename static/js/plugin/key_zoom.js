@@ -20,7 +20,9 @@ return {
   initialize: function() {
     keyboard.register({
       '173': function() { viewport.zoomOut(); dirty.check(); return false },
-      '61': function() { viewport.zoomIn(); dirty.check(); return false }
+      '61': function() { viewport.zoomIn(); dirty.check(); return false },
+      '189': function() { viewport.zoomOut(); dirty.check(); return false },
+      '187': function() { viewport.zoomIn(); dirty.check(); return false }
     })
   }
 }
